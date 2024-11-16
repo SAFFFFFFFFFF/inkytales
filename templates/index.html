@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inky Tales</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <!-- Бургер-меню -->
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
+
+    <!-- Боковое меню -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('index') }}"><h2>Inky Tales</h2></a>
+        </div>
+        <div class="user-info">
+            <img src="{{ url_for('static', filename='images/default_avatar.jpg') }}" alt="User Avatar">
+            {% if current_user.is_authenticated %}
+                <p>{{ current_user.username }}</p>
+            {% else %}
+                <p>Guest</p>
+            {% endif %}
+        </div>
+        <a href="{{ url_for('cart') }}" class="cart-btn">View Cart</a>
+        <ul class="categories">
+            <li><a href="{{ url_for('category', category='fiction') }}">Fiction</a></li>
+            <li><a href="{{ url_for('category', category='nonfiction') }}">Non-fiction</a></li>
+            <li><a href="{{ url_for('category', category='mystery') }}">Mystery</a></li>
+            <li><a href="{{ url_for('category', category='scifi') }}">Sci-fi</a></li>
+            <li><a href="{{ url_for('category', category='fantasy') }}">Fantasy</a></li>
+        </ul>
+
+        <!-- Кнопки аутентификации -->
+        <div class="auth-buttons">
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% else %}
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+
+        <!-- Кнопка добавления книги для администратора и владельца -->
+        {% if current_user.is_authenticated and (current_user.role == 'admin' or current_user.role == 'owner') %}
+            <div class="admin-buttons">
+                <a href="{{ url_for('add_book') }}" class="btn-admin">
+                    {% if current_user.role == 'owner' %}
+                        Add Book/Admins
+                    {% else %}
+                        Add Book
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Поисковая строка -->
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search for a book..." onkeyup="searchBooks()" />
+        <ul id="search-suggestions" class="search-suggestions"></ul>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="main-content">
+        <section class="hero">
+            <h1>Welcome to Inky Tales</h1>
+            <p>Start browsing and discover your next favorite book today!</p>
+        </section>
+
+        <section class="about">
+            <h2>About Our Store</h2>
+            <p>At Inky Tales, we bring you a curated selection of books in different genres to cater to every type of reader. From thrilling fiction to informative non-fiction, we have something for everyone.</p>
+        </section>
+
+        <section class="featured-books">
+            <h2>All Books</h2>
+            <div class="book-list">
+                {% for book in books %}
+                    <div class="book-item">
+                        <!-- Указываем путь к изображению книги -->
+                        <img src="{{ url_for('static', filename=book.image_url if book.image_url else 'images/default_book.jpg') }}" alt="{{ book.title }}" class="book-image">
+                        <div class="book-info">
+                            <h3>{{ book.title }}</h3>
+                            <p>by {{ book.author }}</p>
+                            <p class="price">${{ book.price }}</p>
+                            <a href="{{ url_for('book_detail', book_id=book.id) }}" class="btn-details">Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Toggle Sidebar Menu
+        function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+        }
+
+        // Search Book Suggestions
+        function searchBooks() {
+            const query = document.getElementById('search-bar').value.trim().toLowerCase();
+            const suggestionsContainer = document.getElementById('search-suggestions');
+
+            if (query.length > 0) {
+                fetch(`/search_suggestions?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestionsContainer.innerHTML = ''; // Очищаем предыдущие предложения
+                        data.forEach(book => {
+                            const suggestion = document.createElement('li'); // Создаём новый элемент списка
+                            suggestion.textContent = book.title;
+                            suggestion.onclick = () => {
+                                window.location.href = `/book/${book.id}`;
+                            };
+                            suggestionsContainer.appendChild(suggestion);
+                        });
+                    });
+            } else {
+                suggestionsContainer.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>

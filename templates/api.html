@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Download</title>
+</head>
+<body>
+    <h1>Upload a File</h1>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" name="file" required>
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <p id="uploadMessage"></p>
+
+    <h2>Download a File</h2>
+    <input type="text" id="filenameInput" placeholder="Enter filename to download">
+    <button onclick="downloadFile()">Download</button>
+
+    <script>
+        // Функция для загрузки файла
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('uploadMessage').textContent = result.message;
+        }
+
+        // Функция для скачивания файла
+        async function downloadFile() {
+            const filename = document.getElementById('filenameInput').value;
+
+            // Проверка, что имя файла введено
+            if (!filename) {
+                alert("Please enter a filename.");
+                return;
+            }
+
+            // Осуществление GET-запроса на скачивание
+            const response = await fetch(`/download/${filename}`);
+
+            if (response.status === 200) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            } else {
+                alert("File not found or an error occurred.");
+            }
+        }
+    </script>
+</body>
+</html>

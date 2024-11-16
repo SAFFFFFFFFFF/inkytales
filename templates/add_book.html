@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Боковое меню и бургер-меню -->
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('index') }}"><h2>Inky Tales</h2></a>
+        </div>
+        <ul class="categories">
+            <li><a href="{{ url_for('category', category='fiction') }}">Fiction</a></li>
+            <li><a href="{{ url_for('category', category='nonfiction') }}">Non-fiction</a></li>
+            <li><a href="{{ url_for('category', category='mystery') }}">Mystery</a></li>
+            <li><a href="{{ url_for('category', category='scifi') }}">Sci-fi</a></li>
+            <li><a href="{{ url_for('category', category='fantasy') }}">Fantasy</a></li>
+        </ul>
+        {% if current_user.role == 'owner' %}
+            <div class="auth-buttons">
+                <a href="{{ url_for('add_admin') }}" class="btn-admin">Add Admin</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Основной контент -->
+    <div class="form-container">
+        <h2>Add a New Book</h2>
+        <form action="{{ url_for('add_book') }}" method="POST">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required>
+
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" required>
+
+            <label for="price">Price</label>
+            <input type="number" step="0.01" name="price" id="price" required>
+
+            <label for="image_url">Image URL</label>
+            <input type="text" name="image_url" id="image_url" placeholder="Enter the URL of the image">
+
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="4" required></textarea>
+
+            <label for="category">Category</label>
+            <select name="category" id="category" required>
+                <option value="fiction">Fiction</option>
+                <option value="nonfiction">Non-fiction</option>
+                <option value="mystery">Mystery</option>
+                <option value="scifi">Sci-fi</option>
+                <option value="fantasy">Fantasy</option>
+            </select>
+
+            <button type="submit">Add Book</button>
+        </form>
+    </div>
+
+    <!-- JavaScript для переключения бокового меню -->
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+        }
+    </script>
+</body>
+</html>

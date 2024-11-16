@@ -1,0 +1,538 @@
+/* Общие стили для страницы */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2E2E2E;
+    color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Бургер-меню */
+.burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 20px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+}
+
+.burger-line {
+    width: 30px;
+    height: 4px;
+    background-color: #FFA500;
+}
+
+/* Боковое меню */
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #1C1C1C;
+    transition: left 0.3s ease;
+    padding-top: 60px;
+    z-index: 99;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-header a h2 {
+    color: #FFA500;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.categories {
+    list-style: none;
+    padding-left: 0;
+}
+
+.categories li {
+    padding: 15px 20px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.categories li:hover {
+    background-color: #FFA500;
+}
+
+.auth-buttons a {
+    display: block;
+    background-color: #FFA500;
+    color: #1C1C1C;
+    padding: 10px;
+    margin: 5px 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Основной контент */
+.main-content {
+    padding: 60px 20px 20px 20px;
+    text-align: center;
+}
+
+.hero {
+    text-align: center;
+    background-color: #333;
+    padding: 40px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    color: #FFA500;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #ccc;
+}
+
+.about {
+    background-color: #3B3B3B;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.about h2 {
+    color: #FFA500;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 18px;
+    color: #ccc;
+}
+
+/* Стили карточек книг */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-items: center;
+    padding: 20px;
+}
+
+.book-item {
+    background-color: #3B3B3B;
+    padding: 15px;
+    border-radius: 8px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.book-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.book-info h3 {
+    font-size: 18px;
+    color: #FFA500;
+    margin: 10px 0;
+}
+
+.book-info p {
+    margin: 5px 0;
+}
+
+.price {
+    font-size: 16px;
+    color: #FF6347;
+    font-weight: bold;
+}
+
+.btn-details {
+    display: inline-block;
+    background-color: #FFA500;
+    color: #1C1C1C;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-details:hover {
+    background-color: #FF4500;
+}
+
+/* Кнопка удаления */
+.btn-delete {
+    display: inline-block;
+    background-color: #FF4500;
+    color: #1C1C1C;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.btn-delete:hover {
+    background-color: #FF6347;
+    color: #ffffff;
+}
+
+/* Стили для страницы деталей книги */
+.book-detail-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 80px auto 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-image img {
+    max-width: 150px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 2px solid #FFA500;
+    padding: 5px;
+}
+
+.book-info {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.book-info h1 {
+    color: #FFA500;
+    margin-bottom: 10px;
+}
+
+.book-info p {
+    margin: 5px 0;
+}
+
+/* Стиль для кнопки возврата в магазин и кнопки добавления в корзину */
+.back-btn, .add-to-cart-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #FFA500;
+    color: #1C1C1C;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn:hover, .add-to-cart-btn:hover {
+    background-color: #FFCC00;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .book-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .book-detail-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .book-info {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Общие стили для контейнера корзины */
+.cart-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* Стили для списка элементов корзины */
+.cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+/* Стили для элемента корзины */
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+/* Стили для изображения товара в корзине */
+.cart-item-image {
+    width: 80px;
+    height: 100px;
+    margin-right: 15px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 2px solid #FFA500;
+}
+
+/* Стили для информации о товаре */
+.cart-item-info {
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* Кнопка для удаления товара */
+.remove-btn {
+    padding: 8px 12px;
+    background-color: #FF6347;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: #FF4500;
+}
+
+/* Стиль для общей стоимости */
+.cart-total {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Стиль для кнопки корзины в боковом меню */
+.cart-btn {
+    color: #f1f1f1;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: block;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 10px 20px;
+    box-sizing: border-box;
+}
+
+.cart-btn:hover {
+    background-color: #FFA500;
+    color: #1C1C1C;
+}
+
+/* Store Name Display */
+.store-name {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: #FFA500;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Total Price Display */
+.total-price {
+    font-size: 24px;
+    color: #FF6347;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* Style for the Details button */
+.details-btn {
+    display: inline-block;
+    background-color: #FFA500;
+    color: #1C1C1C;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+.details-btn:hover {
+    background-color: #FFCC00;
+}
+
+/* Align Remove and Details buttons in a row */
+.cart-item-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Adjusted Search Bar */
+.search-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 10px 0;
+}
+
+#search-bar {
+    width: 500px;
+    padding: 10px;
+    border: 2px solid #FFA500;
+    border-radius: 5px;
+    background-color: #333;
+    color: #f1f1f1;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+#search-bar::placeholder {
+    color: #f1f1f1;
+    opacity: 0.8;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    width: 500px;
+    background-color: #333;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    z-index: 999;
+}
+
+.search-suggestions li {
+    padding: 10px;
+    color: #f1f1f1;
+    cursor: pointer;
+    text-align: left;
+}
+
+.search-suggestions li:hover {
+    background-color: #FFA500;
+    color: #1C1C1C;
+}  измени /* Контейнер для поисковой строки */
+.search-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 10px 0;
+}
+
+/* Поисковая строка */
+#search-bar {
+    width: 500px;
+    padding: 10px;
+    border: 2px solid #FFA500;
+    border-radius: 5px;
+    background-color: #333;
+    color: #f1f1f1;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+#search-bar::placeholder {
+    color: #f1f1f1;
+    opacity: 0.8;
+}
+
+/* Контейнер для подсказок */
+.search-suggestions {
+    position: absolute;
+    top: 100%; /* Это гарантирует, что подсказки будут сразу под поисковой строкой */
+    left: 0;
+    right: 0;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #333;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0;
+    list-style: none;
+    z-index: 999;
+}
+
+.search-suggestions li {
+    padding: 10px;
+    color: #f1f1f1;
+    cursor: pointer;
+    text-align: left;
+}
+
+.search-suggestions li:hover {
+    background-color: #FFA500;
+    color: #1C1C1C;
+}
+
+
